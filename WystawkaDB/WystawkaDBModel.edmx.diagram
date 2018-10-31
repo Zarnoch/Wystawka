@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8773f11812cc43678103ab476fb6f169" Name="Diagram1">
+        <EntityTypeShape EntityType="WystawkaDBModel.Coord" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WystawkaDBModel.Foto" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WystawkaDBModel.Item" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="WystawkaDBModel.Localization" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WystawkaDBModel.User" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="WystawkaDBModel.FK_Localization_Coords" ManuallyRouted="false" />
+        <AssociationConnector Association="WystawkaDBModel.FK_Item_Foto" ManuallyRouted="false" />
+        <AssociationConnector Association="WystawkaDBModel.FK_Item_Localization" ManuallyRouted="false" />
+        <AssociationConnector Association="WystawkaDBModel.FK_User_Item" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WystawkaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Coords">
+          <Key>
+            <PropertyRef Name="CoordsID" />
+          </Key>
+          <Property Name="CoordsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Foto">
+          <Key>
+            <PropertyRef Name="FotoID" />
+          </Key>
+          <Property Name="FotoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Localization" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="DatePosted" Type="date" Nullable="false" />
+          <Property Name="DateEnd" Type="date" Nullable="false" />
+          <Property Name="FotoID" Type="int" Nullable="false" />
+          <Property Name="LocalizationID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Localization">
+          <Key>
+            <PropertyRef Name="LocalizationID" />
+          </Key>
+          <Property Name="LocalizationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CoordsID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TelNumber" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" />
+        </EntityType>
+        <Association Name="FK_Item_Foto">
+          <End Role="Foto" Type="Self.Foto" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Foto">
+              <PropertyRef Name="FotoID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="FotoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Localization">
+          <End Role="Localization" Type="Self.Localization" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localization">
+              <PropertyRef Name="LocalizationID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="LocalizationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localization_Coords">
+          <End Role="Coords" Type="Self.Coords" Multiplicity="1" />
+          <End Role="Localization" Type="Self.Localization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coords">
+              <PropertyRef Name="CoordsID" />
+            </Principal>
+            <Dependent Role="Localization">
+              <PropertyRef Name="CoordsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WystawkaDBModelStoreContainer">
+          <EntitySet Name="Coords" EntityType="Self.Coords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Foto" EntityType="Self.Foto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Localization" EntityType="Self.Localization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Item_Foto" Association="Self.FK_Item_Foto">
+            <End Role="Foto" EntitySet="Foto" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Localization" Association="Self.FK_Item_Localization">
+            <End Role="Localization" EntitySet="Localization" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localization_Coords" Association="Self.FK_Localization_Coords">
+            <End Role="Coords" EntitySet="Coords" />
+            <End Role="Localization" EntitySet="Localization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Item" Association="Self.FK_User_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WystawkaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Coord">
+          <Key>
+            <PropertyRef Name="CoordsID" />
+          </Key>
+          <Property Name="CoordsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Localizations" Relationship="Self.FK_Localization_Coords" FromRole="Coords" ToRole="Localization" />
+        </EntityType>
+        <EntityType Name="Foto">
+          <Key>
+            <PropertyRef Name="FotoID" />
+          </Key>
+          <Property Name="FotoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Localization" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Item_Foto" FromRole="Foto" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DatePosted" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateEnd" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FotoID" Type="Int32" Nullable="false" />
+          <Property Name="LocalizationID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Foto" Relationship="Self.FK_Item_Foto" FromRole="Item" ToRole="Foto" />
+          <NavigationProperty Name="Localization" Relationship="Self.FK_Item_Localization" FromRole="Item" ToRole="Localization" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Item" FromRole="Item" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Localization">
+          <Key>
+            <PropertyRef Name="LocalizationID" />
+          </Key>
+          <Property Name="LocalizationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CoordsID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Coord" Relationship="Self.FK_Localization_Coords" FromRole="Localization" ToRole="Coords" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Item_Localization" FromRole="Localization" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TelNumber" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_User_Item" FromRole="User" ToRole="Item" />
+        </EntityType>
+        <Association Name="FK_Localization_Coords">
+          <End Role="Coords" Type="Self.Coord" Multiplicity="1" />
+          <End Role="Localization" Type="Self.Localization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coords">
+              <PropertyRef Name="CoordsID" />
+            </Principal>
+            <Dependent Role="Localization">
+              <PropertyRef Name="CoordsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Foto">
+          <End Role="Foto" Type="Self.Foto" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Foto">
+              <PropertyRef Name="FotoID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="FotoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Localization">
+          <End Role="Localization" Type="Self.Localization" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localization">
+              <PropertyRef Name="LocalizationID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="LocalizationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WystawkaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Coords" EntityType="Self.Coord" />
+          <EntitySet Name="Fotoes" EntityType="Self.Foto" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="Localizations" EntityType="Self.Localization" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Localization_Coords" Association="Self.FK_Localization_Coords">
+            <End Role="Coords" EntitySet="Coords" />
+            <End Role="Localization" EntitySet="Localizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Foto" Association="Self.FK_Item_Foto">
+            <End Role="Foto" EntitySet="Fotoes" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Localization" Association="Self.FK_Item_Localization">
+            <End Role="Localization" EntitySet="Localizations" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Item" Association="Self.FK_User_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WystawkaDBModelStoreContainer" CdmEntityContainer="WystawkaDBEntities">
+          <EntitySetMapping Name="Coords">
+            <EntityTypeMapping TypeName="WystawkaDBModel.Coord">
+              <MappingFragment StoreEntitySet="Coords">
+                <ScalarProperty Name="CoordsID" ColumnName="CoordsID" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fotoes">
+            <EntityTypeMapping TypeName="WystawkaDBModel.Foto">
+              <MappingFragment StoreEntitySet="Foto">
+                <ScalarProperty Name="FotoID" ColumnName="FotoID" />
+                <ScalarProperty Name="Localization" ColumnName="Localization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="WystawkaDBModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DatePosted" ColumnName="DatePosted" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+                <ScalarProperty Name="FotoID" ColumnName="FotoID" />
+                <ScalarProperty Name="LocalizationID" ColumnName="LocalizationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localizations">
+            <EntityTypeMapping TypeName="WystawkaDBModel.Localization">
+              <MappingFragment StoreEntitySet="Localization">
+                <ScalarProperty Name="LocalizationID" ColumnName="LocalizationID" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="CoordsID" ColumnName="CoordsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="WystawkaDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="TelNumber" ColumnName="TelNumber" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

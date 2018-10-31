@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WystawkaDB", "WystawkaDB\WystawkaDB.csproj", "{5FCBA6E4-4C41-496C-A0A6-2D4D2311BF6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WystawkaAPI", "WystawkaAPI\WystawkaAPI.csproj", "{2A672098-2E54-41DD-9B4F-85F66ADF8812}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FCBA6E4-4C41-496C-A0A6-2D4D2311BF6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FCBA6E4-4C41-496C-A0A6-2D4D2311BF6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FCBA6E4-4C41-496C-A0A6-2D4D2311BF6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FCBA6E4-4C41-496C-A0A6-2D4D2311BF6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A672098-2E54-41DD-9B4F-85F66ADF8812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A672098-2E54-41DD-9B4F-85F66ADF8812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A672098-2E54-41DD-9B4F-85F66ADF8812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A672098-2E54-41DD-9B4F-85F66ADF8812}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3468C967-1B4B-44A7-96CB-0C4310E8EEBB}
+	EndGlobalSection
+EndGlobal
