@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WystawkaDB;
@@ -17,9 +14,39 @@ namespace WystawkaAPI.Controllers
         private WystawkaDBEntities db = new WystawkaDBEntities();
 
         // GET: api/Items
-        public IQueryable<Item> GetItems()
+        public List<Models.Item> GetItems()
         {
-            return db.Items;
+            var result = new List<Models.Item>();
+            foreach (var item in db.Items)
+            {
+                result.Add(new Models.Item
+                {
+                    ItemID = item.ItemID,
+                    Name = item.Name,
+                    Description = item.Description,
+                    DatePosted = item.DatePosted,
+                    DateEnd = item.DateEnd,
+                    Foto = new Models.Foto
+                    {
+                        FotoID = item.FotoID,
+                        FotoLocalization = item.Foto.Localization
+                    },
+                    Localization = new Models.Localization
+                    {
+                        LocalizationID = item.LocalizationID,
+                        City = item.Localization.City,
+                        Street = item.Localization.Street,
+                        Coords = new Models.Coords
+                        {
+                            CoordsID = item.Localization.Coord.CoordsID,
+                            Latitude = item.Localization.Coord.Latitude,
+                            Longitude = item.Localization.Coord.Longitude
+                        }
+                    }
+                });
+            }
+
+            return result;
         }
 
         // GET: api/Items/5
@@ -32,7 +59,33 @@ namespace WystawkaAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(item);
+            var result = new Models.Item
+            {
+                ItemID = item.ItemID,
+                Name = item.Name,
+                Description = item.Description,
+                DatePosted = item.DatePosted,
+                DateEnd = item.DateEnd,
+                Foto = new Models.Foto
+                {
+                    FotoID = item.FotoID,
+                    FotoLocalization = item.Foto.Localization
+                },
+                Localization = new Models.Localization
+                {
+                    LocalizationID = item.LocalizationID,
+                    City = item.Localization.City,
+                    Street = item.Localization.Street,
+                    Coords = new Models.Coords
+                    {
+                        CoordsID = item.Localization.Coord.CoordsID,
+                        Latitude = item.Localization.Coord.Latitude,
+                        Longitude = item.Localization.Coord.Longitude
+                    }
+                }
+            };
+
+            return Ok(result);
         }
 
         // PUT: api/Items/5
